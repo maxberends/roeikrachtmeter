@@ -1,3 +1,21 @@
+/*
+Werkend model peripheral voor riem moet volgende modules/ hardware bedienen
+
+-accelerometer/ gyro
+-hx711 load cell
+-aan uit knop
+-battery power
+
+
+Versie:
+
+1.0 3/5/2024: werkend met ble central voor 1 accelerometer data path x
+
+
+  */
+
+
+
 #include <ArduinoBLE.h>
 #include "Arduino_BMI270_BMM150.h"
 
