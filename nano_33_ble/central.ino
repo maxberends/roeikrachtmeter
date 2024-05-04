@@ -1,3 +1,23 @@
+/*
+Werkend model central voor coxbox moet volgende modules/ hardware bedienen
+
+-accelerometer/ gyro
+-SDD display
+-rotary encoder
+-SD card logger
+-aan uit knop
+-battery power
+
+
+Versie:
+
+1.0 3/5/2024: werkend met ble peripheral voor 1 accelerometer data path x
+
+
+  */
+
+
+
 #include <ArduinoBLE.h>
 
 union dat{
