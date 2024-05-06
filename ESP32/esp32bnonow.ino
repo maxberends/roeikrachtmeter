@@ -67,6 +67,26 @@ void OnDataSent(const uint8_t *mac_addr, esp_now_send_status_t status) {
 void setup() {
   // Init Serial Monitor
   Serial.begin(115200);
+
+    if(!bno.begin())
+  {
+    /* There was a problem detecting the BNO055 ... check your connections */
+    Serial.print("Ooops, no BNO055 detected ... Check your wiring or I2C ADDR!");
+    while(1);
+  }
+
+  delay(1000);
+
+  /* Display the current temperature */
+  int8_t temp = bno.getTemp();
+  Serial.print("Current Temperature: ");
+  Serial.print(temp);
+  Serial.println(" C");
+  Serial.println("");
+
+  bno.setExtCrystalUse(true);
+
+  Serial.println("Calibration status values: 0=uncalibrated, 3=fully calibrated");
  
   // Set device as a Wi-Fi Station
   WiFi.mode(WIFI_STA);
