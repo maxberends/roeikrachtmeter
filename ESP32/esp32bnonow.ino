@@ -47,8 +47,8 @@ uint8_t broadcastAddress[] = {0xD8, 0xA0, 0x1D, 0x63, 0x3C, 0x54};
 // Must match the receiver structure
 typedef struct struct_message {
   char a[6];
-  int b;
-  int c;
+  float b;
+  float c;
   float d;
   float e;
 } struct_message;
@@ -115,13 +115,30 @@ void setup() {
  
 void loop() {
   // Set values to send
+  imu::Vector<3> euler = bno.getVector(Adafruit_BNO055::VECTOR_EULER);
+  imu::Vector<3> gyrox = bno.getVector(Adafruit_BNO055::VECTOR_GYROSCOPE);
+  imu::Vector<3> accelx = bno.getVector(Adafruit_BNO055::VECTOR_ACCELEROMETER);
+  /* Display the floating point data */
+  Serial.print("X: ");
+  Serial.print(euler.x());
+  Serial.print(" Y: ");
+  Serial.print(euler.y());
+  Serial.print(" Z: ");
+  Serial.print(euler.z());
+  Serial.print(" GyroX: ");
+  Serial.print(gyrox.x());
+  Serial.print(" AccleX: ");
+  Serial.print(accelx.x());
+  Serial.print("\t\t");
+  
   float riem2 = random(1,100);
   riem2 = (riem2/100);// ((random(1,100))/100);
   Serial.println(riem2);
   strcpy(myData.a, "RIEM1");
-  myData.b = random(1,20);
-  myData.c = 1.2;
-  myData.d = riem2;
+  myData.b = euler.x();
+  myData.c = euler.y();
+  myData.d = gyrox.x();
+  myData.e = accelx.x();
   
   // Send message via ESP-NOW
   esp_err_t result = esp_now_send(broadcastAddress, (uint8_t *) &myData, sizeof(myData));
