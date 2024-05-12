@@ -22,7 +22,13 @@
    Connect SCL to 32
    Connect SDA to 33
    Connect VDD to 3.3V DC
-   Connect GROUND to common ground   
+   Connect GROUND to common ground  
+
+   HALL EFFECT
+   ===========
+   Connect orange to 5V DC
+   Connect green to Ground
+   Connect Black to 2 UNO //
 
    TARE/CALIB BUTTONS
    ===========
@@ -36,6 +42,7 @@
    History
    =======
   2018/5/23
+  2024/5/05
 */
 
 #include <Wire.h>
