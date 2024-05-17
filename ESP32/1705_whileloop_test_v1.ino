@@ -1,4 +1,4 @@
-//test
+
 
 #include <Wire.h>
 #include <Adafruit_Sensor.h>
@@ -41,7 +41,9 @@ float postGyroX;
 float accelXcalc;
 float gyroXvalue;
 int x = 0;
-
+int strokeXvar = 0;
+int catchAngle;
+int releaseAngle;
 
 
 const int touchCal = 14; //calibration call
@@ -64,11 +66,17 @@ void loop() {
 
 
     while (gyroX()  > 0) {  // stroke loop
+      
       sTime = millis();
       stroke == true;
       releaseTime = sTime - rTime;
+      if (strokeXvar == 0) {
+        Serial.println("stroke");
+        catchAngle = angleX();
+      }
       powercalculation();
       gyroX();
+      strokeXvar += 1;
     }
     
     while (gyroX() <= 0) { // release loop
@@ -77,9 +85,15 @@ void loop() {
       stroke == false;
       driveTime = rTime - sTime;
       gyroX();
+      if (strokeXvar =>3) {
+        releaseAngle = angleX();
+      }
+      
     }
 
     printvalues();
+
+    strokeXvar = 0;
   
 
 }
@@ -108,7 +122,8 @@ float gyroX() {
 }
 
 float power() {
-
+  float powerRower = 10;
+  return powerRower;
 }
 
 void powercalculation() {
@@ -118,7 +133,7 @@ void powercalculation() {
     //gyroXvalue = gyroX();
     //accelXvalue = accelX();
     powerTime = millis();
-    Frower = (outboardL * power() / inboardL) * accelX(); //Newton
+    Frower = ((outboardL/1000) * power() / (inboardL/1000)) * accelX(); //Newton
     //P = Frower * gyroX() // dt
     if ((postpowerTime - powerTime) == sampleTime) {
       drivePower[x] = Frower;
@@ -137,6 +152,8 @@ void printvalues() { // esp now message emulator
     //strokeDuration = (driveTime + releaseTime);
     strokeRate = (60/((driveTime + releaseTime)/1000));
     Serial.print("Stroke rate: \t"); Serial.println(strokeRate, 1);
+    Serial.print("Catch Anlge: \t"); Serial.println(catchAngle);
+    Serial.print("Release Angle: \t"); Serial.println(releaseAngle);
     //Serial.print("Frower in Newton: \t"); Serial.println(Frower, 1);
     Serial.print("Stroke in Watt: \t"); Serial.println(strokePower, 1);
     for (x = 0; x += 1; x < 10) {
