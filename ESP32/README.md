@@ -17,3 +17,7 @@ working calibration and euler angle
 
 cleaned code and working tare and calibration hx711 functions with cali-flash led bno055
 
+16 05 2024
+
+created whileloop test file for calculating power and angle variables
+
