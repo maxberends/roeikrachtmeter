@@ -117,7 +117,7 @@ float accelX() {
 
 float gyroX() {
   imu::Vector<3> gyro = bno.getVector(Adafruit_BNO055::VECTOR_GYROSCOPE);
-  gyroXvalue = (gyro.x() * outboardL);  // baansnelheid
+  gyroXvalue = (gyro.x() * (outboardL/1000));  // baansnelheid
   return gyroXvalue; //gyroXvalue;
 }
 
